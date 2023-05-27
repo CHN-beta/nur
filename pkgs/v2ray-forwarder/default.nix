@@ -3,7 +3,7 @@
 	pname = "v2ray-forwarder";
 	version = "0";
 	src = ./.;
-	buildInputs = with pkgs; [ ipset iptables iproute2 ];
+	buildInputs = with pkgs; [ ipset iptables iproute2 coreutils ];
 	nativeBuildInputs = with pkgs; [ makeWrapper ];
 	installPhase = ''
 		mkdir -p $out/bin
@@ -11,7 +11,8 @@
 		do
 			cp ${pname}.$script $out/bin
 			chmod +x $out/bin/${pname}.$script
-			wrapProgram $out/bin/${pname}.$script --prefix PATH : ${lib.makeBinPath (with pkgs; [ ipset iptables iproute2 ]) }
+			wrapProgram $out/bin/${pname}.$script --prefix PATH : \
+        ${lib.makeBinPath (with pkgs; [ ipset iptables iproute2 coreutils ]) }
 		done
 	'';
 }
