@@ -1,17 +1,17 @@
-{ stdenv } :
-stdenv.mkDerivation rec {
+{ stdenv } : stdenv.mkDerivation rec
+{
 	pname = "v2ray-forwarder";
 	version = "0";
 	src = ./.;
-	buildInputs = with pkgs; [ 
-
-  # 传给 CMake 的配置参数，控制 liboqs 的功能
-  cmakeFlags = [
-    "-DBUILD_SHARED_LIBS=ON"
-    "-DOQS_BUILD_ONLY_LIB=1"
-    "-DOQS_USE_OPENSSL=OFF"
-    "-DOQS_DIST_BUILD=ON"
-  ];
-
-  # stdenv.mkDerivation 自动帮你完成其余的步骤
+	buildInputs = with pkgs; [ ipset iptables iproute2 ];
+	nativeBuildInputs = with pkgs; [ makeWrapper ];
+	installPhase = ''
+		mkdir -p $out/bin
+		for script in start stop
+		do
+			cp ${pname}.$script $out/bin
+			chmod +x $out/bin/${pname}.$script
+			wrapProgram $out/bin/${pname}.$script --prefix PATH : ${lib.makeBinPath [ ipset iptables iproute2 ]}
+		done
+	'';
 }

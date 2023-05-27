@@ -1,0 +1,19 @@
+#!/bin/bash
+
+iptables -t mangle -F v2ray -w
+iptables -t mangle -D PREROUTING -j v2ray -w
+iptables -t mangle -X v2ray -w
+
+iptables -t mangle -F v2ray_mark -w
+iptables -t mangle -D OUTPUT -j v2ray_mark -w
+iptables -t mangle -X v2ray_mark -w
+
+ip rule del fwmark 1/1 table 100
+ip route del local 0.0.0.0/0 dev lo table 100
+ip rule del fwmark 2/2 table 101
+ip route del local 0.0.0.0/0 dev lo table 101
+sleep 1
+ipset destroy lo_net
+ipset destroy xmu_net
+ipset destroy noproxy_net
+ipset destroy noproxy_src_net
