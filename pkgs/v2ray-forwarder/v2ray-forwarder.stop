@@ -12,7 +12,7 @@ ip rule del fwmark 1/1 table 100
 ip route del local 0.0.0.0/0 dev lo table 100
 ip rule del fwmark 2/2 table 101
 ip route del local 0.0.0.0/0 dev lo table 101
-sleep 1
+
 ipset destroy lo_net
 ipset destroy xmu_net
 ipset destroy noproxy_net

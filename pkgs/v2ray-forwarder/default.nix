@@ -1,4 +1,4 @@
-{ stdenv } : stdenv.mkDerivation rec
+{ stdenv, pkgs, lib, ... } : stdenv.mkDerivation rec
 {
 	pname = "v2ray-forwarder";
 	version = "0";
@@ -11,7 +11,7 @@
 		do
 			cp ${pname}.$script $out/bin
 			chmod +x $out/bin/${pname}.$script
-			wrapProgram $out/bin/${pname}.$script --prefix PATH : ${lib.makeBinPath [ ipset iptables iproute2 ]}
+			wrapProgram $out/bin/${pname}.$script --prefix PATH : ${lib.makeBinPath (with pkgs; [ ipset iptables iproute2 ]) }
 		done
 	'';
 }
