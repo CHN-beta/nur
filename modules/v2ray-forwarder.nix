@@ -5,7 +5,7 @@
 		enable = mkEnableOption "v2ray-forwarder service";
 		proxyPort = mkOption { type = types.int; default = 1080; description = "The port of the proxy server"; };
 		xmuPort = mkOption { type = types.int; default = 1081; description = "The port of the xmu vpn forwader"; };
-		userExclude = mkOption { type = types.string; default = "v2ray"; description = "The user to exclude"; };
+		userExclude = mkOption { type = types.str; default = "v2ray"; description = "The user to exclude"; };
 	};
 
 	config = mkIf cfg.enable
