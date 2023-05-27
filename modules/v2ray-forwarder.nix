@@ -16,7 +16,11 @@
 			after = [ "network.target" ];
 			wantedBy = [ "multi-user.target" ];
 			environment =
-				{ proxyPort = "${cfg.proxyPort}"; xmuPort = "${cfg.xmuPort}"; uidExclude = "${cfg.uidExclude}"; };
+			{
+				proxyPort = "${toString cfg.proxyPort}";
+				xmuPort = "${toString cfg.xmuPort}";
+				uidExclude = "${toString cfg.uidExclude}";
+			};
 			serviceConfig =
 			{
 				Type = "simple";
