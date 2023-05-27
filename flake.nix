@@ -17,8 +17,6 @@
       packages = forAllSystems (system: import ./default.nix {
         pkgs = import nixpkgs { inherit system; };
       });
-      nixosModules = {
-        services = import ./modules;
-      };
+      nixosModules = import ./modules;
     };
 }
