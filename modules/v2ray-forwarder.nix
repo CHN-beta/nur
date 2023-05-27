@@ -21,8 +21,8 @@
 			{
 				Type = "simple";
 				RemainAfterExit = true;
-				ExecStart = ${pkgs.v2ray-forwarder}/bin/v2ray-forwarder.start;
-				ExecStop = ${pkgs.v2ray-forwarder}/bin/v2ray-forwarder.stop;
+				ExecStart = "${pkgs.v2ray-forwarder}/bin/v2ray-forwarder.start";
+				ExecStop = "${pkgs.v2ray-forwarder}/bin/v2ray-forwarder.stop";
 			};
 		};
 	};
